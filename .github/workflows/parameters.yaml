@@ -1,0 +1,25 @@
+name: parameterised run
+on:
+  workflow_dispatch: 
+   inputs:
+    name:
+      description: 'Enter your name'
+      required: true
+      type: string
+      default: 'renu'
+    environment:
+       description: 'Select environment' 
+       required: true
+       default: 'dev'  
+       type: choice
+       options:
+         - dev
+         - prod
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+     - uses: actions/checkout@v4
+     - name: Run a one-line script
+       run: echo Hello, ${{ inputs.name }}! You have selected ${{ inputs.environment }} environment.         
+    
