@@ -9,7 +9,7 @@ jobs:
         run: |
          echo "This is a file created in job1." > output.txt
       - name: Upload the file as an artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: yash
           path: output.txt
@@ -18,7 +18,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Download the artifact from job1
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: yash
       - name: Display the content of the downloaded file
