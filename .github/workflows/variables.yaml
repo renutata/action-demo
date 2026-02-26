@@ -1,0 +1,23 @@
+
+name: variables workflow
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+env: 
+  MY_VAR: "This is cutom variable environment" 
+jobs: 
+  build:
+    runs-on: self-hosted
+    steps:
+     - uses: actions/checkout@v4
+     - name: Run a one-line script
+       run: echo Hello, world!
+     - name: Run a multi-line script
+       run: |
+         echo " ======printing====builtin variables===="
+         env
+         pwd
+         ls -lhtr
+         echo " ======printing====custom variable===="
+         echo "my variable is $MY_VAR"
