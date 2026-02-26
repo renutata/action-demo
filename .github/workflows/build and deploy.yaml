@@ -26,7 +26,12 @@ jobs:
   deploy:
     needs: build
     runs-on: self-hosted
+    environment: ${{ inputs.environment }}
     steps:
      - name: print input parameters
-       run: echo Hello, ${{ inputs.version}}! You have selected ${{ inputs.environment }} environment.         
-    
+       run: |
+         echo Hello, ${{ inputs.version}}! You have selected ${{ inputs.environment }} environment.         
+     - name: deploy the application
+       run: |
+         echo "Deploying the application..."
+         echo deployment is on  $AKS version ${{ inputs.version }} to ${{ inputs.environment }} environment
