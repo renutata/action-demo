@@ -25,7 +25,7 @@ jobs:
      - name: terraform plan
        run: echo "terraform plan"
      - name: terraform apply boolean input
-       if: ${{ inputs.destroy }}
+       if: ${{ !inputs.destroy }}
        run: echo "terraform apply"
      - name: terraform destroy boolean input
        if: ${{ inputs.destroy }}
