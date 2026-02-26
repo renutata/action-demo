@@ -25,6 +25,7 @@ jobs:
        run: echo "Building the application..."
   deploy:
     runs-on: self-hosted
+    depends-on: build
     steps:
      - name: print input parameters
        run: echo Hello, ${{ inputs.version}}! You have selected ${{ inputs.environment }} environment.         
