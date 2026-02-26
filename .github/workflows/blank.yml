@@ -1,5 +1,5 @@
 
-name: CI
+name: hello workflow
 on:
   workflow_dispatch:
   push:
