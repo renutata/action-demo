@@ -1,0 +1,27 @@
+name: file handelling between jobs
+on:
+  workflow_dispatch:
+jobs:
+  job1:
+    runs-on: self-hosted
+    steps:
+      - name: Create a file with some content
+        run: |
+         echo "This is a file created in job1." > output.txt
+      - name: Upload the file as an artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: yash
+          path: output.txt
+  job2:
+    needs: job1
+    runs-on: self-hosted
+    steps:
+      - name: Download the artifact from job1
+        uses: actions/download-artifact@v3
+        with:
+          name: yash
+      - name: Display the content of the downloaded file
+        run: |
+          echo "Content of the downloaded file:"
+          cat output.txt
