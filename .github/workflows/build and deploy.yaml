@@ -34,4 +34,4 @@ jobs:
      - name: deploy the application
        run: |
          echo "Deploying the application..."
-         echo deployment is on  $AKS version ${{ inputs.version }} to ${{ inputs.environment }} environment
+         echo "deployment is on ${{ vars.AKS }} for environment ${{ inputs.environment }} with version ${{ inputs.version }}"
