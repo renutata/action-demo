@@ -1,0 +1,31 @@
+name: build and deploy
+on:
+  workflow_dispatch: 
+   inputs:
+    version:
+      description: 'version to deploy'
+      required: true
+      type: string
+      default: 'v.1.0.0'
+    environment:
+       description: 'Select environment' 
+       required: true
+       default: 'dev'  
+       type: choice
+       options:
+         - dev
+         - uat
+         - prod
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+     - uses: actions/checkout@v4
+     - name: build the application
+       run: echo "Building the application..."
+  deploy:
+    runs-on: self-hosted
+    steps:
+     - name: print input parameters
+       run: echo Hello, ${{ inputs.version}}! You have selected ${{ inputs.environment }} environment.         
+    
