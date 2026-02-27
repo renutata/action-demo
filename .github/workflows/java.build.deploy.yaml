@@ -36,7 +36,7 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
         run: |
           cd addressbook
-          mvn clean test package deploy -s .mvn/settings.xml -Drevision=${{ inputs.version }}
+          mvn clean test package deploy -Drevision=${{ inputs.version }}
       - name: upload jar
         uses: actions/upload-artifact@v4
         with:
