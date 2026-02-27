@@ -37,6 +37,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: java-app-jar
-          path: addressbooktarget/*.jar 
+          path: addressbook/target/*.jar 
         
           
