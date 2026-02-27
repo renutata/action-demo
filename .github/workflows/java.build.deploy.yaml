@@ -37,5 +37,27 @@ jobs:
         with:
           name: java-app-jar
           path: target/*.jar 
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: java-app-jar
+          path: java-app-jar
+      - name: Setup docker buildx
+        uses: docker/setup-buildx-action@v3     
+      - name: Login to ghcr artifact
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}    
+      - name: Build and push Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/java-app-demo:${{ env.GITHUB_RUN_NUMBER }} .
+          docker push ghcr.io/${{ github.repository_owner }}/java-app-demo:${{ env.GITHUB_RUN_NUMBER }}
+
         
           
