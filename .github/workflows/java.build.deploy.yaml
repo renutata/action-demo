@@ -41,6 +41,8 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
@@ -53,11 +55,16 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}    
+          password: ${{ secrets.GITHUB_TOKEN }} 
+      - name: checking docker file
+        run: |
+          pwd
+          ls -lhtr 
+          cat Dockerfile || true      
       - name: Build and push Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/java-app-demo:$GITHUB_RUN_NUMBER .
-          docker push ghcr.io/${{ github.repository_owner }}/java-app-demo:$GITHUB_RUN_NUMBER 
+          docker build -t ghcr.io/${{ github.repository_owner }}/java-app-demo:${{ github.run_number }} .
+          docker push ghcr.io/${{ github.repository_owner }}/java-app-demo:${{ github.run_number }} 
 
         
           
