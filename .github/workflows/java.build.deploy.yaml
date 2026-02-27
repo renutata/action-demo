@@ -1,6 +1,12 @@
 name: java build and deploy
 on:
   workflow_dispatch:
+   inputs:
+    version:
+      description: 'Version to deploy'
+      required: true  
+      type: string
+      default: 'v1.0.0-SNAPSHOT'  
 permissions:
   contents: read
   id-token: write
@@ -19,7 +25,7 @@ jobs:
       - name: setup maven 
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: '3.9.2'
+          maven-version: '3.9.9'
       - name: Build with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
