@@ -31,11 +31,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB ACTOR: ${{ github.actor }}
         run: |
+          cd addressbook
           mvn clean test package deploy -s .mvn/settings.xml -Drevision=${{ inputs.version }}
       - name: upload jar
         uses: actions/upload-artifact@v4
         with:
           name: java-app-jar
-          path: target/*.jar 
+          path: addressbooktarget/*.jar 
         
           
