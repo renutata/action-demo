@@ -5,7 +5,7 @@ permissions:
   id-token: write
   contents: read  
 env:
-  IMAGE_NAME: myapp
+  IMAGE_NAME: hello-java
 jobs:
   build-and-deploy:
     runs-on: self-hosted
@@ -24,7 +24,7 @@ jobs:
           az acr login --name ${{ secrets.ACR_NAME }}
       - name: build docker image
         run: |
-          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/:${{ env.IMAGE_NAME }}:${{ github.sha }} .
+          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }} .
       - name: push docker image
         run: |
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}  
@@ -34,4 +34,6 @@ jobs:
       - name: Deploy to AKS
         run: |
           kubectl set image deployment/hello-java-deployment \
-          myapp=${{ secrets.ACR_NAME }}.azurecr.io/myapp:${{ github.sha }} 
+          hello-java=${{ secrets.ACR_NAME }}.azurecr.io/hello-java:${{ github.sha }} 
+
+          kubectl rollout status deployment/hello-java-deployment
