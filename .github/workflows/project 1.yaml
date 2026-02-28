@@ -1,6 +1,9 @@
 name: project 1 workflow
 on:
   workflow_dispatch:
+permissions:
+  id-token: write
+  contents: read  
 env:
   IMAGE_NAME: myapp
 jobs:
